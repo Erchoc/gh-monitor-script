@@ -1,0 +1,34 @@
+name: Daily GitHub Monitor
+
+# 每天北京时间10点触发（UTC+8 → UTC 2点）
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  # 手动触发（测试用）
+  workflow_dispatch:
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置Node.js环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20 # 兼容Node.js 16+/18+/20+
+
+      - name: 执行监控脚本
+        env:
+          # 公网OSS的订阅列表JSON地址（如https://xxx.oss-cn-hangzhou.aliyuncs.com/gh-subscribe-list.json）
+          SUBSCRIBE_LIST_URL: ${{ secrets.SUBSCRIBE_LIST_URL }}
+          # GitHub PAT（权限：repo）
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # LLM接口地址
+          LLM_API_URL: ${{ secrets.LLM_API_URL }}
+        run: node src/index.js
+
+      - name: 执行结果输出
+        if: always()
+        run: echo "脚本执行完成，查看日志详情"
