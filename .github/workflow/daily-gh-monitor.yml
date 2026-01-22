@@ -24,7 +24,7 @@ jobs:
           # 公网OSS的订阅列表JSON地址（如https://xxx.oss-cn-hangzhou.aliyuncs.com/gh-subscribe-list.json）
           SUBSCRIBE_LIST_URL: ${{ secrets.SUBSCRIBE_LIST_URL }}
           # GitHub PAT（权限：repo）
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GLOBAL_TOKEN }}
           # LLM接口地址
           LLM_API_URL: ${{ secrets.LLM_API_URL }}
         run: node src/index.js
