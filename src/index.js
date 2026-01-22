@@ -141,7 +141,7 @@ async function main() {
   try {
     // 配置参数（从环境变量读取）
     const SUBSCRIBE_LIST_URL = process.env.SUBSCRIBE_LIST_URL; // 公网OSS的JSON地址
-    const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+    const GITHUB_TOKEN = process.env.GLOBAL_TOKEN;
     const LLM_API_URL = process.env.LLM_API_URL;
 
     if (!SUBSCRIBE_LIST_URL || !GITHUB_TOKEN || !LLM_API_URL) {
